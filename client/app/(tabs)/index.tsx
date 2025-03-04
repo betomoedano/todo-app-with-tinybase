@@ -58,8 +58,9 @@ export default function HomeScreen() {
     (store) =>
       createExpoSqlitePersister(store, SQLite.openDatabaseSync("tasks.db")),
     [],
-    // @ts-ignore
-    (persister) => persister.load().then(persister.startAutoSave)
+    async (persister) => {
+      persister.load().then(persister.startAutoSave);
+    }
   );
   useCreateSynchronizer(store, async (store) => {
     const sync = await createWsSynchronizer(
